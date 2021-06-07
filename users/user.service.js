@@ -1,7 +1,8 @@
-const config = require('config.json');
+const config = require('../config.json');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const db = require('_helpers/db');
+var bcrypt = require('bcrypt-nodejs');
+//const bcrypt = require('bcryptjs');
+const db = require('../_helpers/db');
 const User= db.User;
 module.exports={
     authenticate,
@@ -27,17 +28,21 @@ async function getAll(){
 async function getById(id){
     return await User.findById(id);
 }
-async function create (userParm){
-   //validate 
+async function create (userParm)
+{
+    //validate 
    if(await User.findOne({username: userParm.username})){
        throw  'Username "'+ userParm.username + '"is already taken';
    }
-
    const user = new User(userParm);
     if (userParm.password){
         user.hash= bcrypt.hashSync(userParm.password,10);
     }
+
+    console.log("test");
+   // console.log("user last" , userParm.username);
     await user.save();
+    console.log("test save");
 }
  async function update(id, userParm){
       const user= await User.findById(id);
