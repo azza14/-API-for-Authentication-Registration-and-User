@@ -19,17 +19,28 @@ module.exports=router;
             .then(user => user ? res.json(user): res.status (400).json({message: 'username or password is incorrect'}))
             .catch(err => next(err));
 }
+
 function register (req,res,next){
     userService.create(req.body)
            .then(() => res.json({}))
            .catch(err => next(err));
 }
+<<<<<<< HEAD
 function getAllUsers (req,res,next){
+=======
+
+function getAll (req,res,next){
+>>>>>>> d3d5253aabf0d1031a87cccb363248644e052233
     userService.getAll(req.body)
            .then(users => res.json(users))
            .catch(err => next(err));
 }
+<<<<<<< HEAD
 function getCurrentUser (req,res,next){
+=======
+
+function getCurrent (req,res,next){
+>>>>>>> d3d5253aabf0d1031a87cccb363248644e052233
     userService.getById(req.user.sub)
            .then(user =>  user ? res.json(user): res.sendStatus(404))
            .catch(err => next(err));
